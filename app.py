@@ -3,6 +3,7 @@ import random
 import re
 from typing import List, Set
 
+
 st.set_page_config(page_title="随机数字生成器", page_icon="🎲", layout="centered")
 
 st.title("🎲 随机数字生成器")
@@ -187,6 +188,24 @@ st.markdown(
     unsafe_allow_html=True,
 )
 # ─────────────────────────────────────────────────────────────────────────────
+
+st.markdown("""
+<style>
+/* Make every Streamlit column shrink to its content … */
+div[data-testid="column"] {
+    width: fit-content !important;     /* don't stretch */
+    flex: 0 0 auto !important;         /* no flex grow/shrink */
+}
+/* …then give the *inside* of each column zero vertical gap */
+div[data-testid="column"] > div[data-testid="stVerticalBlock"]{
+    gap: 0rem !important;
+}
+/* finally, add a tiny horizontal margin after the button column */
+div[data-testid="column"]:nth-of-type(1){
+    margin-right: .25rem;              /* tweak as needed */
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 if st.session_state.history:
