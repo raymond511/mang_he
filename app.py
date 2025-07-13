@@ -171,12 +171,30 @@ except Exception as exc:
 # -----------------------------------------------------------------------------
 # 📝 History with ➕ buttons on the **LEFT** of each number
 # -----------------------------------------------------------------------------
+
+# ── put this once, near the top of your script ────────────────────────────────
+# Define a reusable CSS class for big numbers
+st.markdown(
+    """
+    <style>
+    .big-num {
+        font-size: 28px !important;   /* tweak the size to taste */
+        font-weight: 600;             /* optional – makes it bold */
+        line-height: 1.2;             /* keeps spacing tight */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+# ─────────────────────────────────────────────────────────────────────────────
+
+
 if st.session_state.history:
     st.subheader("历史记录 (点击 ➕ 将其排除)")
     for idx, num in enumerate(reversed(st.session_state.history)):
-        btn_col, num_col = st.columns([1, 4])  # button first, then number
+        btn_col, num_col = st.columns([1, 2])  # button first, then number
         if btn_col.button("➕", key=f"add_{idx}"):
             # Defer mutation until next run to avoid widget‑state mutation errors
             st.session_state["pending_add"] = num
             st.rerun()
-        num_col.write(num)
+        num_col.markdown(f"<span class='big-num'>{num}</span>", unsafe_allow_html=True)
